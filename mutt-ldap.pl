@@ -47,12 +47,14 @@ my $mesg = $ldap->search (base => $basedn,
 
 $mesg->code && die $mesg->error;
 
-print(scalar($mesg->all_entries), " entries found\n");
+if (scalar($mesg->all_entries) == 0) {
+        print("0 entries found\n");
+}
 
 foreach my $entry ($mesg->all_entries) {
         if ($entry->get_value('mail')) {
                 print($entry->get_value('mail'),"\t",
-                      decode("iso-8859-1", $entry->get_value('cn')),"\tFrom Exchange LDAP database\n");
+                      decode("iso-8859-1", $entry->get_value('cn')),"\n");
                 }
         }
 $ldap->unbind;
