@@ -47,9 +47,8 @@ my $mesg = $ldap->search (base => $basedn,
 
 $mesg->code && die $mesg->error;
 
-if (scalar($mesg->all_entries) == 0) {
-        print("0 entries found\n");
-}
+print(scalar($mesg->all_entries), " entries found\n");
+
 
 foreach my $entry ($mesg->all_entries) {
         if ($entry->get_value('mail')) {
